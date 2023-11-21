@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+
+#sepet {
+    height: 300px;
+    width: 350px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    position: absolute;
+    z-index: 2;
+    left: 140%;
+    transition: all 1s linear;
+    overflow: scroll;
+    overflow-x: hidden;
+    padding: 25px;
+}
+
+.aktif {
+    left: -900% !important; 
+}

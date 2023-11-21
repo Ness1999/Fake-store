@@ -5,11 +5,11 @@
 //! async await
 
 const row = document.querySelector('.row')
-
+let sepet=[]
 
 async function fetchData() {
     try {
-        let response = await fetch('https://api.escuelajs.co/api/v1/products')
+        let response = await fetch('https://fakestoreapi.com/products')
         let data = await response.json()
     return data
     } catch (error) {
@@ -27,7 +27,7 @@ fetchData ()
     // }
 
     data.forEach((urun)=> {
-        let sepet=[]
+        
 
 
 
@@ -47,7 +47,7 @@ fetchData ()
         imgDiv.style.height='250px'
 
         const img = document.createElement('img')
-        img.src=urun.category.image
+        img.src=urun.image
         img.style.width='100%'
         img.style.height='100%'
 
@@ -59,7 +59,7 @@ fetchData ()
         baslik.textContent=urun.title
 
         const aciklama = document.createElement('p')
-        baslik.textContent=`${urun.description}-${urun.price}$`
+        aciklama.textContent=`${urun.price}$`
 
         const btn = document.createElement('button')
         btn.classList.add('btn','btn-warning')
@@ -69,6 +69,22 @@ fetchData ()
             console.log(urun)
 
             sepet.push(urun)
+
+            sepet.forEach (urun => {
+                const urunAdi = document.createElement('p')
+                urunAdi.textContent=urun.title
+            
+                cart.append(urunAdi)
+            })
+            
+            
+
+            let sepetJSON = JSON.stringify(sepet)
+            console.log(sepetJSON)
+
+            localStorage.setItem('sepet', sepetJSON)
+
+
             console.log(sepet)
         })
 
@@ -84,4 +100,26 @@ fetchData ()
         col.appendChild(card)
         row.appendChild(col)
     })
+})
+
+
+
+//!shopping cart
+
+const cartIcon = document.querySelector('.fa-cart-shopping')
+const cart = document.querySelector('#sepet')
+
+cartIcon.addEventListener('click', ()=> {
+    cart.classList.toggle('aktif')
+})
+ 
+
+let localSepet = localStorage.getItem('sepet')
+let normalSepet = JSON.parse(localSepet)
+
+normalSepet.forEach(urun => {
+    const baslik = document.createElement('p')
+    baslik.textContent=urun.title
+
+    cart.append(baslik)
 })
